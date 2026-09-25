@@ -1,0 +1,6 @@
+{
+  "name": "The Ministry of Bad Decisions",
+  "description": "The official sovereign registry and bureaucratic authority for regrettable life choices, unprovoked impulses, and high-consequence blunders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
