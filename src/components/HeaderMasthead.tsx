@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import royalSealImg from '../assets/images/ministry_royal_seal_1790355456837.jpg';
 import { CornerFlourish, LaurelWreath } from './OrnateFlourish';
-import { AlertTriangle, Award, FileQuestion, Volume2, ShieldCheck, Printer } from 'lucide-react';
+import { AlertTriangle, Award, FileQuestion, Volume2, ShieldCheck, Printer, History } from 'lucide-react';
 
 interface HeaderMastheadProps {
   onReopenSecurityAudit: () => void;
   onJumpToCertificate: () => void;
   onJumpToAppeals: () => void;
+  onJumpToHistorical: () => void;
   onApplyPageStamp: () => void;
   onPrintPage: () => void;
 }
@@ -15,6 +16,7 @@ export const HeaderMasthead: React.FC<HeaderMastheadProps> = ({
   onReopenSecurityAudit,
   onJumpToCertificate,
   onJumpToAppeals,
+  onJumpToHistorical,
   onApplyPageStamp,
   onPrintPage,
 }) => {
@@ -148,6 +150,14 @@ export const HeaderMasthead: React.FC<HeaderMastheadProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              <button
+                onClick={onJumpToHistorical}
+                className="px-3 py-1.5 bg-[#1b2a47] hover:bg-[#253d66] text-[#fef08a] border border-[#d4af37] font-bold tracking-wider uppercase cursor-pointer flex items-center gap-1.5 transition-colors shadow-sm"
+              >
+                <History className="w-3.5 h-3.5 text-[#fbbf24]" />
+                Historical Archives
+              </button>
+
               <button
                 onClick={onJumpToAppeals}
                 className="px-3 py-1.5 bg-[#450a0a] hover:bg-[#5c0d0d] text-[#fca5a5] border border-[#ef4444] font-bold tracking-wider uppercase cursor-pointer flex items-center gap-1.5 transition-colors shadow-sm"

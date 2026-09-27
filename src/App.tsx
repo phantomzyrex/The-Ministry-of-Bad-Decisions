@@ -7,6 +7,7 @@ import { OfficialPressRelease } from './components/OfficialPressRelease';
 import { CertificateOfRecognition } from './components/CertificateOfRecognition';
 import { IncidentReportingTerminal } from './components/IncidentReportingTerminal';
 import { UnauthorizedAppeals } from './components/UnauthorizedAppeals';
+import { HistoricalArchives } from './components/HistoricalArchives';
 import { OfficialFooter } from './components/OfficialFooter';
 import { InteractiveRubberStamper } from './components/InteractiveRubberStamper';
 import { CornerFlourish, LaurelWreath, FiligreeDivider } from './components/OrnateFlourish';
@@ -24,6 +25,13 @@ export default function App() {
 
   const handleJumpToAppeals = () => {
     const el = document.getElementById('unauthorized-appeals-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleJumpToHistorical = () => {
+    const el = document.getElementById('historical-archives-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -72,6 +80,7 @@ export default function App() {
         onReopenSecurityAudit={() => setShowSecurityAudit(true)}
         onJumpToCertificate={handleJumpToCertificate}
         onJumpToAppeals={handleJumpToAppeals}
+        onJumpToHistorical={handleJumpToHistorical}
         onApplyPageStamp={handleApplyPageStamp}
         onPrintPage={handlePrintPage}
       />
@@ -95,6 +104,9 @@ export default function App() {
 
         {/* Section VI: Unauthorized Appeals & Sovereign Clemency Tribunal */}
         <UnauthorizedAppeals />
+
+        {/* Section VII: Historical Blunder Archives (AI Redacted Teletype) */}
+        <HistoricalArchives />
       </main>
 
       {/* 3. Official Dense Disclaimers & Department Seals Footer */}

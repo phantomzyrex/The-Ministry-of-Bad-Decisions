@@ -41,6 +41,13 @@ export const OfficialFooter: React.FC = () => {
             </button>
             <span>•</span>
             <button 
+              onClick={() => scrollTo('historical-archives-section')} 
+              className="hover:text-[#fef08a] hover:underline cursor-pointer text-[#fbbf24]"
+            >
+              Historical Archives
+            </button>
+            <span>•</span>
+            <button 
               onClick={() => scrollTo('unauthorized-appeals-section')} 
               className="hover:text-[#fef08a] hover:underline cursor-pointer text-[#f87171]"
             >

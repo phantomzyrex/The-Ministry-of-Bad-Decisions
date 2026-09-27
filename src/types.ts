@@ -41,3 +41,18 @@ export interface AppealRecord {
   magistrateRemark: string;
   filedTime: string;
 }
+
+export interface HistoricalBlunderRecord {
+  id: string;
+  caseFileNo: string;
+  dateOrEra: string;
+  historicalFigureOrGroup: string;
+  title: string;
+  classificationLevel: 'ULTRA-SECRET' | 'TOP REGRET' | 'CLASSIFIED ∞' | 'EYES ONLY';
+  redactedText: string;
+  unredactedText: string;
+  historicalContext: string;
+  officialMinisterialRuling: string;
+  archivalOfficer: string;
+  isCustomGenerated?: boolean;
+}
