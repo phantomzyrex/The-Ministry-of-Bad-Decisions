@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import royalSealImg from '../assets/images/ministry_royal_seal_1790355456837.jpg';
 import { CornerFlourish, LaurelWreath } from './OrnateFlourish';
 import { AlertTriangle, Award, FileQuestion, Volume2, ShieldCheck, Printer, History } from 'lucide-react';
+import { GlobalSearchBar } from './GlobalSearchBar';
 
 interface HeaderMastheadProps {
   onReopenSecurityAudit: () => void;
@@ -10,6 +11,9 @@ interface HeaderMastheadProps {
   onJumpToHistorical: () => void;
   onApplyPageStamp: () => void;
   onPrintPage: () => void;
+  onSelectGazette?: (id: string) => void;
+  onSelectHistorical?: (id: string) => void;
+  onSelectDepartment?: (id: string) => void;
 }
 
 export const HeaderMasthead: React.FC<HeaderMastheadProps> = ({
@@ -19,6 +23,9 @@ export const HeaderMasthead: React.FC<HeaderMastheadProps> = ({
   onJumpToHistorical,
   onApplyPageStamp,
   onPrintPage,
+  onSelectGazette,
+  onSelectHistorical,
+  onSelectDepartment,
 }) => {
   const [alarmActive, setAlarmActive] = useState(false);
   const [alarmMessage, setAlarmMessage] = useState<string | null>(null);
@@ -113,6 +120,15 @@ export const HeaderMasthead: React.FC<HeaderMastheadProps> = ({
           <p className="mt-2 text-sm sm:text-base font-serif italic text-[#e2d5bd] max-w-2xl text-balance">
             Serving Your Worst Instincts Since 1742 &bull; The Sole Sovereign Authority Overseeing Impulsive Purchases, Unhinged Late-Night Dispatches, and Unwarranted Optimism.
           </p>
+
+          {/* Central Government Global Search Bar */}
+          <div className="mt-5 w-full max-w-2xl px-2 z-30">
+            <GlobalSearchBar
+              onSelectGazette={onSelectGazette}
+              onSelectHistorical={onSelectHistorical}
+              onSelectDepartment={onSelectDepartment}
+            />
+          </div>
 
           {/* Dual Stamped Ribbons / Imperial Badges */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3">

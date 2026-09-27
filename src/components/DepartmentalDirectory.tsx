@@ -16,7 +16,7 @@ import {
   AlertOctagon
 } from 'lucide-react';
 
-const DEPARTMENTS: Department[] = [
+export const DEPARTMENTS: Department[] = [
   {
     id: 'dept-2am',
     name: 'Bureau of 2 AM Texts',
@@ -178,10 +178,29 @@ const renderIcon = (name: string) => {
   }
 };
 
-export const DepartmentalDirectory: React.FC = () => {
+interface DepartmentalDirectoryProps {
+  selectedDeptId?: string | null;
+  onClearSelectedDept?: () => void;
+}
+
+export const DepartmentalDirectory: React.FC<DepartmentalDirectoryProps> = ({
+  selectedDeptId,
+  onClearSelectedDept,
+}) => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
   const [admittedOffense, setAdmittedOffense] = useState<string | null>(null);
   const [isAffixed, setIsAffixed] = useState(false);
+
+  React.useEffect(() => {
+    if (selectedDeptId) {
+      const found = DEPARTMENTS.find((d) => d.id === selectedDeptId);
+      if (found) {
+        setSelectedDept(found);
+        setAdmittedOffense(null);
+        setIsAffixed(false);
+      }
+    }
+  }, [selectedDeptId]);
 
   const handleOpenDossier = (dept: Department) => {
     setSelectedDept(dept);
@@ -189,12 +208,19 @@ export const DepartmentalDirectory: React.FC = () => {
     setIsAffixed(false);
   };
 
+  const handleCloseDossier = () => {
+    setSelectedDept(null);
+    if (onClearSelectedDept) {
+      onClearSelectedDept();
+    }
+  };
+
   const handleAffixDossier = () => {
     setIsAffixed(true);
   };
 
   return (
-    <section className="relative w-full py-8 px-4 bg-[#f4ebdc] text-[#1c1917] border-b-4 border-double border-[#8b1828]">
+    <section id="departmental-directory-section" className="relative w-full py-8 px-4 bg-[#f4ebdc] text-[#1c1917] border-b-4 border-double border-[#8b1828]">
       {/* Subtle watermark background for this section */}
       <div className="max-w-6xl mx-auto">
         
@@ -296,7 +322,7 @@ export const DepartmentalDirectory: React.FC = () => {
 
             {/* Close button */}
             <button
-              onClick={() => setSelectedDept(null)}
+              onClick={handleCloseDossier}
               className="absolute top-4 right-4 text-[#8b1828] hover:text-[#000000] p-1 border border-[#8b1828] cursor-pointer"
               title="Close Dossier"
             >
@@ -387,7 +413,7 @@ export const DepartmentalDirectory: React.FC = () => {
               
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setSelectedDept(null)}
+                  onClick={handleCloseDossier}
                   className="px-3 py-1.5 font-display text-xs border border-[#8b1828] text-[#8b1828] hover:bg-[#8b1828] hover:text-[#ffffff] transition-colors cursor-pointer"
                 >
                   Close Dossier

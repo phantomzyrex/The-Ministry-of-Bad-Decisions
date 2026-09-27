@@ -15,6 +15,33 @@ import { CornerFlourish, LaurelWreath, FiligreeDivider } from './components/Orna
 export default function App() {
   const [showSecurityAudit, setShowSecurityAudit] = useState(false);
   const [initialStampVisible, setInitialStampVisible] = useState(true);
+  const [selectedDeptId, setSelectedDeptId] = useState<string | null>(null);
+  const [selectedReleaseId, setSelectedReleaseId] = useState<string | null>(null);
+  const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
+
+  const handleSelectGazette = (id: string) => {
+    setSelectedReleaseId(id);
+    const el = document.getElementById('official-press-release-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectHistorical = (id: string) => {
+    setSelectedRecordId(id);
+    const el = document.getElementById('historical-archives-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectDepartment = (id: string) => {
+    setSelectedDeptId(id);
+    const el = document.getElementById('departmental-directory-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const handleJumpToCertificate = () => {
     const el = document.getElementById('certificate-section');
@@ -83,6 +110,9 @@ export default function App() {
         onJumpToHistorical={handleJumpToHistorical}
         onApplyPageStamp={handleApplyPageStamp}
         onPrintPage={handlePrintPage}
+        onSelectGazette={handleSelectGazette}
+        onSelectHistorical={handleSelectHistorical}
+        onSelectDepartment={handleSelectDepartment}
       />
 
       {/* 2. Public Notice Scrolling/Static Ticker */}
@@ -91,10 +121,15 @@ export default function App() {
       {/* Main Content Sections */}
       <main className="flex-1 w-full">
         {/* Section II: Departmental Directory Grid */}
-        <DepartmentalDirectory />
+        <DepartmentalDirectory 
+          selectedDeptId={selectedDeptId}
+          onClearSelectedDept={() => setSelectedDeptId(null)}
+        />
 
         {/* Section III: Official Gazette & Stamped Press Release */}
-        <OfficialPressRelease />
+        <OfficialPressRelease 
+          selectedReleaseId={selectedReleaseId}
+        />
 
         {/* Section IV: Certificate of Dubious Merit (Diploma Award) */}
         <CertificateOfRecognition />
@@ -106,7 +141,9 @@ export default function App() {
         <UnauthorizedAppeals />
 
         {/* Section VII: Historical Blunder Archives (AI Redacted Teletype) */}
-        <HistoricalArchives />
+        <HistoricalArchives 
+          selectedRecordIdProp={selectedRecordId}
+        />
       </main>
 
       {/* 3. Official Dense Disclaimers & Department Seals Footer */}

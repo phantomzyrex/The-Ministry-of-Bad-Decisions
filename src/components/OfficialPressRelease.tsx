@@ -3,11 +3,27 @@ import { CornerFlourish, WaxSealGraphic, FiligreeDivider } from './OrnateFlouris
 import { Stamp, Check, FileText, Download, Share2, Archive, Calendar, Clock, Sparkles } from 'lucide-react';
 import { PressReleaseArchiveModal, ARCHIVE_RELEASES, ArchivalPressRelease } from './PressReleaseArchiveModal';
 
-export const OfficialPressRelease: React.FC = () => {
+interface OfficialPressReleaseProps {
+  selectedReleaseId?: string | null;
+}
+
+export const OfficialPressRelease: React.FC<OfficialPressReleaseProps> = ({
+  selectedReleaseId,
+}) => {
   const [activeRelease, setActiveRelease] = useState<ArchivalPressRelease>(ARCHIVE_RELEASES[0]);
   const [stampKey, setStampKey] = useState(0);
   const [copiedNotice, setCopiedNotice] = useState(false);
   const [isArchiveModalOpen, setIsArchiveModalOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (selectedReleaseId) {
+      const found = ARCHIVE_RELEASES.find((r) => r.id === selectedReleaseId);
+      if (found) {
+        setActiveRelease(found);
+        setStampKey((k) => k + 1);
+      }
+    }
+  }, [selectedReleaseId]);
 
   const handleReStamp = () => {
     setStampKey((k) => k + 1);
@@ -26,7 +42,7 @@ export const OfficialPressRelease: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full py-8 px-4 bg-[#140c06] text-[#f7f0e1] border-b-4 border-double border-[#d4af37]">
+    <section id="official-press-release-section" className="relative w-full py-8 px-4 bg-[#140c06] text-[#f7f0e1] border-b-4 border-double border-[#d4af37]">
       
       {/* Archive Modal for Past Announcements */}
       <PressReleaseArchiveModal 

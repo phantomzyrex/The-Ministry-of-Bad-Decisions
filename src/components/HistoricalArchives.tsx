@@ -20,7 +20,7 @@ import {
   Clock
 } from 'lucide-react';
 
-const PRE_SEEDED_HISTORICAL_RECORDS: HistoricalBlunderRecord[] = [
+export const PRE_SEEDED_HISTORICAL_RECORDS: HistoricalBlunderRecord[] = [
   {
     id: 'hist-rome-44bc',
     caseFileNo: 'DKT-ROME-44BC',
@@ -109,9 +109,21 @@ const HISTORICAL_ERAS = [
   '20th Century & Early Computing',
 ];
 
-export const HistoricalArchives: React.FC = () => {
+interface HistoricalArchivesProps {
+  selectedRecordIdProp?: string | null;
+}
+
+export const HistoricalArchives: React.FC<HistoricalArchivesProps> = ({
+  selectedRecordIdProp,
+}) => {
   const [records, setRecords] = useState<HistoricalBlunderRecord[]>(PRE_SEEDED_HISTORICAL_RECORDS);
   const [selectedRecordId, setSelectedRecordId] = useState<string>(PRE_SEEDED_HISTORICAL_RECORDS[0].id);
+
+  React.useEffect(() => {
+    if (selectedRecordIdProp) {
+      setSelectedRecordId(selectedRecordIdProp);
+    }
+  }, [selectedRecordIdProp]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedEra, setSelectedEra] = useState('All Historical Eras');
   const [isDeclassifiedView, setIsDeclassifiedView] = useState(false);
